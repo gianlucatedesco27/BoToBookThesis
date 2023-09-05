@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BoToBookClient.Infrastructure
 {
-    public interface IBoToBookWrapper
+    public interface IChatbotWrapper
     {
         Task<(string, List<string>)> CreateRandomStory(string name);
         Task<(string, List<string>)> CreateCustomStory(string name, string friend, string setting, string antagonist);

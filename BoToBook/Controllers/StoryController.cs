@@ -9,31 +9,23 @@ namespace BoToBook.Controllers
     public class StoryController : ControllerBase
     {
         private readonly ILogger<StoryController> _logger;
-        private readonly IBoToBookWrapper _boToBookWrapper;
+        private readonly IChatbotWrapper _boToBookWrapper;
 
-        public StoryController(ILogger<StoryController> logger, IBoToBookWrapper boToBookWrapper)
+        public StoryController(ILogger<StoryController> logger, IChatbotWrapper boToBookWrapper)
         {
             this._boToBookWrapper = boToBookWrapper;
             _logger = logger;
         }
 
         [HttpPost("RandomStory")]
-        public async Task<IActionResult> CreateStory([FromBody] StorySummary storySummary)
+        public async Task<IActionResult> CreateStory([FromHeader] string heroName)
         {
             try
             {
-                var response = new CustomResponse();
-
-                var infoStory = await _boToBookWrapper.CreateRandomStory(storySummary.Hero);
+                var infoStory = await _boToBookWrapper.CreateRandomStory(heroName);
                 byte[] pdf = await _boToBookWrapper.GeneratePDF(infoStory.Item1, infoStory.Item2);
-                response = new CustomResponse
-                {
-                    FileContent = Convert.ToBase64String(pdf),
-                    StoryText = infoStory.Item1
-                };
 
-
-                return Ok(response);
+                return File(pdf, "application/pdf", $"La storia di {heroName}.pdf");
             }
             catch (Exception ex)
             {
@@ -47,18 +39,10 @@ namespace BoToBook.Controllers
         {
             try
             {
-                var response = new CustomResponse();
-
                 var infoStory = await _boToBookWrapper.CreateCustomStory(storySummary.Hero, storySummary.Friend, storySummary.Setting, storySummary.Antagonist);
                 byte[] pdf = await _boToBookWrapper.GeneratePDF(infoStory.Item1, infoStory.Item2);
-                response = new CustomResponse
-                {
-                    FileContent = Convert.ToBase64String(pdf),
-                    StoryText = infoStory.Item1
-                };
 
-
-                return Ok(response);
+                return File(pdf, "application/pdf", $"La storia di {storySummary.Hero}.pdf");
             }
             catch (Exception ex)
             {

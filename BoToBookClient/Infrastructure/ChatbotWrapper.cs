@@ -13,14 +13,14 @@ using iTextSharp.text;
 
 namespace BoToBookClient.Infrastructure
 {
-    public class BoToBookWrapper : IBoToBookWrapper
+    public class ChatbotWrapper : IChatbotWrapper
     {
-        private readonly ILogger<BoToBookWrapper> logger;
+        private readonly ILogger<ChatbotWrapper> logger;
         private static IConfiguration _configuration;
         private readonly OpenAIClient openAIClient;
         private readonly TextAnalyticsClient textAnalyticsClient;
 
-        public BoToBookWrapper(ILogger<BoToBookWrapper> logger, IConfiguration configuration)
+        public ChatbotWrapper(ILogger<ChatbotWrapper> logger, IConfiguration configuration)
         {
             this.logger = logger;
             _configuration = configuration;
@@ -168,9 +168,6 @@ namespace BoToBookClient.Infrastructure
                     new ChatMessage(ChatRole.System, "Usa sempre toni carini e adatti ai bambini"),
                     new ChatMessage(ChatRole.System, "I personaggi, eroe, amici, ambientazioni ed antagonisti devono sempre avere una piccola descrizione"),
                     new ChatMessage(ChatRole.User, $"Crea una storia con un Protagonista {storySummary.Hero}, un compagno di avventura {storySummary.Friend} che vivono in {storySummary.Setting}. C'è sempre un'antagonista {storySummary.Antagonist}"),
-                    //new ChatMessage(ChatRole.User, $"C'era una volta un {storySummary.Hero} che aveva una fidata spalla {storySummary.Friend}"),
-                    //new ChatMessage(ChatRole.User, $"La storia è ambientata in {storySummary.Setting}"),
-                    //new ChatMessage(ChatRole.User, $"{storySummary.Hero} e {storySummary.Friend} devono affrontare un antagonista di nome {storySummary.Antagonist}"),
                 }
             };
             return chatCompletionsOptions;

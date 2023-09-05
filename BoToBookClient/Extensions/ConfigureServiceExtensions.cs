@@ -8,7 +8,7 @@ namespace BoToBookClient.Extensions
         public static IServiceCollection AddChatbotServices(this IServiceCollection services)
         {
             services
-                .AddScoped<IBoToBookWrapper, BoToBookWrapper>();
+                .AddScoped<IChatbotWrapper, ChatbotWrapper>();
             return services;
         }
     }

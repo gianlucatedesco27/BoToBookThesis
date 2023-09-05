@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen(conf =>
 builder.Services.AddCors();
 
 // Add your service registration and modifications to the ServiceCollection here
-builder.Services.AddScoped<IBoToBookWrapper, BoToBookWrapper>();
+builder.Services.AddScoped<IChatbotWrapper, ChatbotWrapper>();
 
 var app = builder.Build();
 
