@@ -1,4 +1,7 @@
 # BoToBookThesis
+Passo 0:
+
+Assicurarsi di avere un account Azure per la creazione delle risorse Azure OpenAI ed Azure Text Analytics
 
 Passo 1: Preparazione dell'ambiente
 
